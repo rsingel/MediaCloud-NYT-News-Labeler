@@ -53,7 +53,7 @@ def dcgan():
 
 @app.route('/word2vec', methods=['POST'])
 def word2vec():
-    text =  request.json["text"]
+    text = request.json["text"]
     result = models.vectorize_model.vectorize(text)
     return jsonify(result)
 

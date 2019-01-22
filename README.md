@@ -11,19 +11,18 @@ We use it in the Media Cloud project to automatically tag every news stories wit
 Installation
 ------------
 
-This is built with Python. 
+This is built with Python 3. 
 
 On OSX I had to install hdf5 first with brew: `brew install hdf5`.
 
-Do this to install all the Python dependencies.
+Do this to install all the Python dependencies (see `doc/python-versions.md` for more info).
 
 ```shell
-virtualenv venv
-source venv/bin/activate
 pip install -r requirements.txt  
 ```
 
-You also need the `word2vec` pre-trained Google News corpus and NYTLabels model.  Run `download_models.py` to get them.
+You also need the `word2vec` pre-trained Google News corpus and NYTLabels model.  Run `download_models.py` to get them
+(600MB).
 
 Lastly, you'll need `punkt` dataset from NLTK data:
 
@@ -41,5 +40,5 @@ Note: this consumes about **5GB of memory** while running, to keep all the model
 Deploying
 ---------
 
-This is built to deploy on Dokku.  Set the `WORKERS` environment variable to set how many workers gunicorn
+This is built to deploy on Heroku/Dokku.  Set the `WORKERS` environment variable to set how many workers gunicorn
 starts with.

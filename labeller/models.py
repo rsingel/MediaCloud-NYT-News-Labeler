@@ -1,11 +1,10 @@
 import os
 import logging
 import gensim
-import urllib
 from keras.models import load_model
 import json
 import sys
-import cPickle as pickle
+import pickle # in python3 this will try to use cPickle by default
 
 from labeller import base_dir
 from labeller.topicdetection import TopicDetectionModel, VectorizerModel
@@ -25,7 +24,7 @@ vectorize_model = None
 def initialize():
     logger.info("Prepping models:")
     if not _vectors_file_exists():
-        logger.error("Missing Google News models! Follow the README.md instructions for downloading and installing them")
+        logger.error("Missing Google News models! Follow the README.md instructions for downloading and installing.")
         sys.exit()
     _load_vectors_file()
     _load_scalers()
@@ -52,11 +51,12 @@ def _load_scaler_to_memory(path):
     """ Load a pickle from disk to memory """
     if not os.path.exists(path):
         raise ValueError("File " + path + " does not exist")
-    return pickle.load(open(path, 'rb'))
+    with open(path, 'rb') as f:
+        return pickle.load(f, encoding='bytes')
 
 
 def _load_scalers():
-    global model3000, model600, model_all, model_with_tax, model_just_tax,vectorize_model
+    global model3000, model600, model_all, model_with_tax, model_just_tax, vectorize_model
 
     models_dir = os.path.join(base_dir, "models")
     saved_models_dir = os.path.join(models_dir, "saved_models")

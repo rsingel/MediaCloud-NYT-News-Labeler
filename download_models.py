@@ -50,30 +50,30 @@ def download_model(url, dest_dir, expected_size):
     dest_path = os.path.join(dest_dir, filename)
 
     # File that gets created for every model when its downloaded and extracted successfully
-    downloaded_marker_file = ".%s.downloaded" % (filename,)
+    downloaded_marker_file = ".%s.downloaded".format(filename)
     downloaded_marker_path = os.path.join(dest_dir, downloaded_marker_file)
 
     if os.path.exists(downloaded_marker_path):
-        print "Model %s already exists." % (dest_path,)
+        print("Model %s already exists.".format(dest_path))
 
     else:
 
         need_to_download = True
         if os.path.isfile(dest_path):
             if os.path.getsize(dest_path) != expected_size:
-                print "Removing incomplete model file %s..." % (dest_path,)
+                print("Removing incomplete model file %s...".format(dest_path))
                 os.unlink(dest_path)
             else:
                 need_to_download = False
 
         if need_to_download:
-            print "Model %s was not found, downloading from %s..." % (dest_path, url,)
+            print("Model %s was not found, downloading from %s...".format(dest_path, url))
             __download_file(url=url, dest_path=dest_path)
 
         if os.path.getsize(dest_path) != expected_size:
-            raise Exception("Downloaded file size is not %d." % (expected_size,))
+            raise Exception("Downloaded file size is not %d.".format(expected_size))
 
-        print "Unzipping %s to %s..." % (dest_path, dest_dir,)
+        print("Unzipping %s to %s...".format(dest_path, dest_dir))
         __unzip_file(zip_file=dest_path, dest_dir=dest_dir)
 
         os.unlink(dest_path)
